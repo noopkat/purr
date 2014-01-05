@@ -42,7 +42,7 @@ http.createServer(function(req, res) {
     else
     {
         console.log("GET");
-        var html = '<html><body><form method="post" action="http://localhost:8080"><input type="submit" value="Submit" /></form></body>';
+        var html = '<html><body><form method="post" action="/"><input type="submit" value="Submit" /></form></body>';
         
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.end(html);
