@@ -4,11 +4,6 @@ var st = require('st')({
   index : "index.html",
   passthrough: true
 });
-var qs = require('querystring');
-var http = require('http');
-var request = require('request');
-var Watson = require('watson-js').Watson;
-var watson = new Watson(options);
 
 var options = {
     client_id : 'yfn9j9vkcd5qqt9tze0mertjkmxigrb2',
@@ -16,28 +11,41 @@ var options = {
     //scope : 'SPEECH'
 }
 
+var qs = require('querystring');
+var http = require('http');
+var request = require('request');
+var Watson = require('watson-js').Watson;
+var watson = new Watson(options);
+
 http.createServer(function(req, res) {
-  
-  if (!st(req, res)) {
-    var body = "";
+  console.log('listening....')
+  console.dir(req.param);
 
-    req.on('data', function(chunk) {
-      body += chunk.toString();
-    });
-
-    req.on('end', function() {
-      if (req.method === 'POST') {
-        
-        var data = qs.parse(body);
-        //console.log(data);
-
-        watson.sendSMS('cat3.jpg', 'e3ICwFwy0CBXy2IUTDyYJzuj0Tq0rzzj', function(err, t) {
-          console.log('response : ', err, t);
+    if (req.method == 'POST') {
+        console.log("POST");
+        var body = '';
+        req.on('data', function (data) {
+            body += data;
+            console.log("Partial body: " + body);
+            // watson!
+            watson.sendSMS('cat3.jpg', 'e3ICwFwy0CBXy2IUTDyYJzuj0Tq0rzzj', function(err, t) {
+              console.log('response : ', err, t);
+            });
         });
+        req.on('end', function () {
+            console.log("Body: " + body);
+        });
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end('post received');
+
+    }
+    else
+    {
+        console.log("GET");
+        var html = '<html><body><form method="post" action="http://localhost:8080">Name: <input type="text" name="name" /><input type="submit" value="Submit" /></form></body>';
         
-       
-      
-      }
-    });    
-  }
-}).listen(80);
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(html);
+    }
+    
+}).listen(8080)
