@@ -23,7 +23,7 @@ http.createServer(function(req, res) {
     if (req.method == 'POST') {
         console.log("POST!!!!");
          // terrible code with unused paramters below
-            watson.sendSMS('', 'e3ICwFwy0CBXy2IUTDyYJzuj0Tq0rzzj', function(err, t) {
+            watson.sendSMS('', '', function(err, t) {
               console.dir('response : ', err, t);
             });
     }
