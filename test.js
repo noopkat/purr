@@ -7,6 +7,6 @@ var Watson = require('watson-js').Watson;
 var watson = new Watson(options);
 
 
-watson.sendSMS('', 'e3ICwFwy0CBXy2IUTDyYJzuj0Tq0rzzj', function(err, t) {
+watson.sendSMS('', '', function(err, t) {
   console.log('response : ', err, t);
 });
