@@ -6,9 +6,8 @@ var st = require('st')({
 });
 
 var options = {
-    client_id : 'yfn9j9vkcd5qqt9tze0mertjkmxigrb2',
-    client_secret : 'geh8noikgfbbcdfjisurtl19ytre1zfj',
-    //scope : 'SPEECH'
+    client_id : '',
+    client_secret : ''
 }
 
 var qs = require('querystring');
@@ -23,29 +22,14 @@ http.createServer(function(req, res) {
 
     if (req.method == 'POST') {
         console.log("POST!!!!");
-         // watson!
-            watson.sendSMS('cat3.jpg', 'e3ICwFwy0CBXy2IUTDyYJzuj0Tq0rzzj', function(err, t) {
+         // terrible code with unused paramters below
+            watson.sendSMS('', '', function(err, t) {
               console.dir('response : ', err, t);
             });
-
-        //var body = '';
-
-        // req.on('data', function (data) {
-        //   console.log(data);
-        //     body += data;
-        //     console.log("Partial body: " + body);
-           
-            
-        // });
-        // req.on('end', function () {
-        //     console.dir("Body: " + body);
-        // });
-        // res.writeHead(200, {'Content-Type': 'text/html'});
-        // res.end('post received');
-
     }
     else
-    {
+    {   
+        // test page render
         console.log("GET");
         var html = '<html><body><form method="post" action="/"><input type="hidden" value="hello"/><input type="submit" value="Submit" /></form></body>';
         
