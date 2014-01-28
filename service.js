@@ -5,6 +5,7 @@ var st = require('st')({
   passthrough: true
 });
 
+// these are for watson
 var options = {
     client_id : '',
     client_secret : ''
@@ -13,28 +14,26 @@ var options = {
 var qs = require('querystring');
 var http = require('http');
 var request = require('request');
-var Watson = require('watson-js').Watson;
-var watson = new Watson(options);
+var Mamaset = require('mamaset').Mamaset;
+var mamaset = new Mamaset(options);
 
 http.createServer(function(req, res) {
-  console.dir('listening....')
-  console.dir(req.param);
 
-    if (req.method == 'POST') {
-        console.log("POST!!!!");
-         // terrible code with unused paramters below
-            watson.sendSMS('', '', function(err, t) {
-              console.dir('response : ', err, t);
-            });
-    }
-    else
-    {   
-        // test page render
-        console.log("GET");
-        var html = '<html><body><form method="post" action="/"><input type="hidden" value="hello"/><input type="submit" value="Submit" /></form></body>';
-        
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end(html);
-    }
+  if (req.method == 'POST') {
+    // terrible code with unused paramters below
+    mamaset.sendMMS('', function(err, t) {
+      console.dir('response : ', err, t);
+    });
+  }
+  else
+  {   
+    // test page render
+    console.log("GET");
+    // this is temporary, just to create a quick submit button that allows you to test a post to the server manually without the tinyduino
+    var html = '<html><body><form method="post" action="/"><input type="submit" value="Submit" /></form></body>';
     
-}).listen(8081)
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.end(html);
+  }
+    
+}).listen(8081);
