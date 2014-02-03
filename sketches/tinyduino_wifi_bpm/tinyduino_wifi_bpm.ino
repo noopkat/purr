@@ -34,9 +34,6 @@ byte mac[6];
 //  VARIABLES
 int pulsePin = 0;                 // Pulse Sensor purple wire connected to analog pin 0
 int blinkPin = 13;                // pin to blink led at each beat
-int fadePin = 5;                  // pin to do fancy classy fading blink at each beat
-int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
-
 
 // these variables are volatile because they are used during the interrupt service routine!
 volatile int BPM;                   // used to hold the pulse rate
@@ -57,8 +54,6 @@ void setup(void)
     while(1);
   }
   
-  displayMACAddress();
-  
   // Connect to  WiFi network
   cc3000.connectToAP(WLAN_SSID, WLAN_PASS, WLAN_SECURITY);
   Serial.println("Connected to WiFi network!");
@@ -71,7 +66,6 @@ void setup(void)
   }  
   
   pinMode(blinkPin,OUTPUT);         // pin that will blink to your heartbeat!
-  pinMode(fadePin,OUTPUT);          // pin that will fade to your heartbeat!
   Serial.begin(115200);             // we agree to talk fast!
   interruptSetup();                 // sets up to read Pulse Sensor signal every 2mS 
   int count = 0;
@@ -84,19 +78,19 @@ void loop(void)
 {
   Serial.println("looping again!");
   
-    // sendDataToProcessing('S', Signal);     // send Processing the raw Pulse Sensor data
-  if (QS == true){                       // Quantified Self flag is true when arduino finds a heartbeat
-        //fadeRate = 255;                  // Set 'fadeRate' Variable to 255 to fade LED with pulse
-        //sendDataToProcessing('B',BPM);   // send heart rate with a 'B' prefix
-        //sendDataToProcessing('Q',IBI);   // send time between beats with a 'Q' prefix
+  // Quantified Self flag is true when arduino finds a heartbeat
+  if (QS == true){                       
         if (BPM > 90) {
           count += 1;
         }
         if (count == 5000) {
+          // send a kitten!
           send_request(request);
+          // delay for a long time after sending a kitten, so we don't overwhelm the poor person with omg kittennnzzzzz every second
           delay(500000);
         }
-        QS = false;                      // reset the Quantified Self flag for next time    
+        // reset the Quantified Self flag for next time  
+        QS = false;
      }
     
     // Update every 5 seconds
@@ -132,26 +126,3 @@ void send_request (String request) {
     client.close();    
     Serial.println("Connection closed.");
 }
-
-// this is just if you need to authorise the tinyduino to be allowed on the network, or you want to give it a static ip
-void displayMACAddress(void)
-{
-  uint8_t macAddress[6];
-  
-  if(!cc3000.getMacAddress(macAddress))
-  {
-    Serial.println(F("Unable to retrieve MAC Address!\r\n"));
-  }
-  else
-  {
-    Serial.print(F("MAC Address : "));
-    cc3000.printHex((byte*)&macAddress, 6);
-  }
-}
-
-
-/*void sendDataToProcessing(char symbol, int data ){
-    Serial.print(symbol);                // symbol prefix tells Processing what type of data is coming
-    Serial.println(data);                // the data to send culminating in a carriage return
-  }*/
-
