@@ -4,13 +4,10 @@
   "description": "anxiety monitoring bracelet that sends you a kitten",
   "main": "service.js",
   "dependencies": {
-    "base64stream": "~0.1.1",
     "browserify": "~3.18.0",
-    "levelup": "~0.18.2",
-    "leveldown": "~0.10.2",
     "request": "~2.30.0",
     "st": "~0.2.3",
-    "watson-js": "~0.1.1"
+    "marmoset": "~0.0.0"
   },
   "devDependencies": {},
   "scripts": {
