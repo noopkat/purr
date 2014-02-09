@@ -1,7 +1,7 @@
 # P.U.R.R.
 Personal Ultimate Reassurance Response
 
-[Blog post about the project]()
+[Blog post about the project](http://meow.noopkat.com/p-u-r-r-personal-ultimate-reassurance-response/)
 
 [Demo video](http://www.youtube.com/watch?v=NVSwhnLiNJs)
 
