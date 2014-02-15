@@ -1,6 +1,8 @@
 # P.U.R.R.
 Personal Ultimate Reassurance Response
 
+A 3D printed bracelet that measures your pulse rate for anxiety, and sends a kitten to your phone if you’re having a bad time.
+
 [Blog post about the project](http://meow.noopkat.com/p-u-r-r-personal-ultimate-reassurance-response/)
 
 [Demo video](http://www.youtube.com/watch?v=NVSwhnLiNJs)
